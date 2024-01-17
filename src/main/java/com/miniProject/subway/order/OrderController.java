@@ -14,7 +14,7 @@ public class OrderController {
 
     ArrayList<MenuDTO> menuDTO= new ArrayList<>();
     ArrayList ordermenu = new ArrayList();
-    ArrayList orderprice = new ArrayList();
+    static ArrayList orderprice = new ArrayList();
     ArrayList choosebread = new ArrayList();
 
 
@@ -255,7 +255,7 @@ public class OrderController {
     }
 
     /** 장바구니 담긴 총 금액 */
-    public int priceBasket() {  
+    public static int priceBasket() {
         int totPrc = 0;
 
         for (int i = 0; i < orderprice.size(); i++) {

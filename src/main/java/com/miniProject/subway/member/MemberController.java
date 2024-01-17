@@ -8,8 +8,7 @@ import java.util.Scanner;
 
 
 public class MemberController{                    // login여부를 바꾸기 위해 Main클래스를 상속함
-
-    ArrayList<MemberDTO> memberDTO= new ArrayList<>();
+    static ArrayList<MemberDTO> memberDTO= new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     MemberService memberService = new MemberService();
 
