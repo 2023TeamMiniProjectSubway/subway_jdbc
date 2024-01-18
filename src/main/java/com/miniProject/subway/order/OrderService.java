@@ -7,15 +7,17 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import static com.miniProject.subway.common.JDBCTemplate.close;
 import static com.miniProject.subway.common.JDBCTemplate.getConnection;
+import static com.miniProject.subway.order.OrderController.priceBasket;
 
 
 public class OrderService {
 
-    public int insertMenu(String orderCode, MemberDTO memberDTO) {
+    public int insertMenu(String id) {
         Connection con = getConnection();
 
         PreparedStatement pstmt = null;
@@ -25,16 +27,16 @@ public class OrderService {
         Properties prop = new Properties();
 
         try {
-            prop.loadFromXML(new FileInputStream("src/main/java/com/miniProject/subway/mapper/menu-query.xml"));
+            prop.loadFromXML(new FileInputStream("src/main/java/com/miniProject/subway/mapper/order-query.xml"));
             String query = prop.getProperty("insertMenu");
 
             System.out.println(query);
 
             pstmt = con.prepareStatement(query);
 
-            pstmt.setString(1, orderCode);
-            pstmt.setString(2, memberDTO.getid());  // List에 정보가 담겨 있으니까 그 리스트에서 겟해야함.
-            pstmt.setInt(3, OrderController.priceBasket());
+            pstmt.setString(1,id );  // List에 정보가 담겨 있으니까 그 리스트에서 겟해야함.
+//            System.out.println("현재 총 가격 : " + priceBasket());
+            pstmt.setInt(2, priceBasket());
 
             result = pstmt.executeUpdate();
 

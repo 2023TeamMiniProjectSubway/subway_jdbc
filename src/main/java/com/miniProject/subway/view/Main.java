@@ -1,6 +1,7 @@
 package com.miniProject.subway.view;
 
 import com.miniProject.subway.member.MemberController;
+import com.miniProject.subway.member.MemberService;
 import com.miniProject.subway.run.Application;
 
 import java.util.InputMismatchException;

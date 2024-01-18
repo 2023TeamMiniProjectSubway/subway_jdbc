@@ -24,5 +24,15 @@
                         0
                         )
     </entry>
+    <entry key="loginCheckMember">
+        SELECT MEMBER_PASSWORD
+        FROM SUBWAY_MEMBER
+        WHERE MEMBER_ID = ?
+    </entry>
+
+    <entry key="setDTOMember">
+        SELECT *
+        FROM SUBWAY_MEMBER
+    </entry>
 
 </properties>

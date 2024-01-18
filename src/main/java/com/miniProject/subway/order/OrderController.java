@@ -1,5 +1,6 @@
 package com.miniProject.subway.order;
 
+import com.miniProject.subway.member.MemberDTO;
 import com.miniProject.subway.menu.MenuDTO;
 import com.miniProject.subway.view.OrderMain;
 import com.miniProject.subway.view.OrderList;
@@ -7,22 +8,25 @@ import com.miniProject.subway.view.Main;
 
 import java.util.*;
 
+import  com.miniProject.subway.member.MemberDTO;
+
+import static com.miniProject.subway.member.MemberController.memberDTO;
 import static com.miniProject.subway.view.OrderMain.*;
 
 
 public class OrderController {
 
-    ArrayList<MenuDTO> menuDTO= new ArrayList<>();
-    ArrayList ordermenu = new ArrayList();
-    static ArrayList orderprice = new ArrayList();
-    ArrayList choosebread = new ArrayList();
+    public static ArrayList<MenuDTO> menuDTO= new ArrayList<>();
+    public static ArrayList ordermenu = new ArrayList();
+    public static ArrayList orderprice = new ArrayList();
+    public static  ArrayList choosebread = new ArrayList();
 
 
 
     ArrayList<Set> minusVegetable = new ArrayList<>();
     ArrayList<Set> addTopping = new ArrayList<>();
 
-
+    public static HashMap<String, String> menuhash = new HashMap<>();
 
     public static int orderMenuNum = 0;
 
@@ -60,6 +64,29 @@ public class OrderController {
 
         menuDTO.add(new MenuDTO("랍스터", 7600,"신선한 랍스터 통살이 고소한 마요네즈와 만나 풍미가 가득, 입안 가득 신선한 랍스터 샌드위치"));
 
+
+
+        menuhash.put(menuDTO.get(0).getMenuname(), "S01");
+        menuhash.put(menuDTO.get(1).getMenuname(), "S02");
+        menuhash.put(menuDTO.get(2).getMenuname(), "S03");
+        menuhash.put(menuDTO.get(3).getMenuname(), "S04");
+        menuhash.put(menuDTO.get(4).getMenuname(), "S05");
+        menuhash.put(menuDTO.get(5).getMenuname(), "S06");
+        menuhash.put(menuDTO.get(6).getMenuname(), "S07");
+        menuhash.put(menuDTO.get(7).getMenuname(), "S08");
+        menuhash.put(menuDTO.get(8).getMenuname(), "S09");
+        menuhash.put(menuDTO.get(9).getMenuname(), "S10");
+        menuhash.put(menuDTO.get(10).getMenuname(), "S11");
+        menuhash.put(menuDTO.get(11).getMenuname(), "S12");
+        menuhash.put(menuDTO.get(12).getMenuname(), "S13");
+        menuhash.put(menuDTO.get(13).getMenuname(), "S14");
+        menuhash.put(menuDTO.get(14).getMenuname(), "S15");
+        menuhash.put(menuDTO.get(15).getMenuname(), "S16");
+        menuhash.put(menuDTO.get(16).getMenuname(), "S17");
+        menuhash.put(menuDTO.get(17).getMenuname(), "S18");
+        menuhash.put(menuDTO.get(18).getMenuname(), "S19");
+
+//        System.out.println("key : " + menuhash.keySet() + "value : " + menuhash.values());
 
 
     }
@@ -261,6 +288,7 @@ public class OrderController {
         for (int i = 0; i < orderprice.size(); i++) {
             totPrc += (int) orderprice.get(i);
         }
+        System.out.println(totPrc);
         return totPrc;
     }
 
@@ -304,7 +332,7 @@ public class OrderController {
 
             if (choice == 1) {
                 System.out.println("                            ▷ 😊 결제가 완료되었습니다.");
-                orderList.orderComplete();
+                orderList.orderComplete(memberDTO);
                 System.out.println("                            ▷" + priceBasket() );
                 System.out.println("                            ▷ " + payPoint() );
                 return;
@@ -363,7 +391,7 @@ public class OrderController {
 
                     clearMenu();
 
-                    orderList.orderComplete();
+                    orderList.orderComplete(memberDTO);
                     return;
 
 
@@ -378,7 +406,7 @@ public class OrderController {
                         clearMenu();
 
                         System.out.println("");
-                        orderList.orderComplete();
+                        orderList.orderComplete(memberDTO);
                         System.out.println("=================================================================================");
                         return;
                 }

@@ -25,8 +25,8 @@ public class MemberDTO {
         return id;
     }
 
-    public void setid(String id) {
-        id = id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPwd() {

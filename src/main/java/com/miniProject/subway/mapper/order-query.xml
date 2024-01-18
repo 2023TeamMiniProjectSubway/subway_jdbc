@@ -4,17 +4,16 @@
 
     <entry key="insertMenu">
         INSERT INTO SUBWAY_ORDER (
-                                    ORDER_CODE
-                                    , MEMBER_ID
+                                    MEMBER_ID
                                     , TOTAL_PRICE
                                     )
         VALUES (
                 ?
                 ,?
-                ,?
                 )
 
 
     </entry>
+
 
 </properties>
