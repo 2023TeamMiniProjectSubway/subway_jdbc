@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -50,4 +51,38 @@ public class OrderService {
         }
         return result;
     }
+
+    public String getOrderCode() {
+
+        Connection con = getConnection();
+
+        ResultSet rset = null;
+        PreparedStatement pstmt = null;
+        String result = "";
+
+        Properties prop = new Properties();
+
+        try {
+            prop.loadFromXML(new FileInputStream("src/main/java/com/miniProject/subway/mapper/getOrderCode-query.xml"));
+            String query = prop.getProperty("getOrderCode");
+
+            pstmt = con.prepareStatement(query);
+            rset = pstmt.executeQuery();
+
+            while (rset.next()) {
+                result = rset.getString("LPAD(MAX(ORDER_CODE),3,0)");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(pstmt);
+            close(rset);
+            close(con);
+        }
+        return result;
+    }
+
 }

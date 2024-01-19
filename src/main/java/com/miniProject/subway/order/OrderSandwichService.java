@@ -12,7 +12,7 @@ import static com.miniProject.subway.common.JDBCTemplate.getConnection;
 
 public class OrderSandwichService {
 
-    public static void insertSandwichOrder (String code, String sanName, String breadName, int price) {
+    public static void insertSandwichOrder (String sandwichCode, String orderCode, String sanName, String breadName, int price) {
 
         Connection con = getConnection();
 
@@ -28,10 +28,11 @@ public class OrderSandwichService {
             String query = prop.getProperty("insertSandwichOrder");
 
             pstmt = con.prepareStatement(query);
-            pstmt.setString(1,code);
-            pstmt.setString(2,sanName);
-            pstmt.setString(3,breadName);
-            pstmt.setInt(4,price);
+            pstmt.setString(1,sandwichCode);
+            pstmt.setString(2,orderCode);
+            pstmt.setString(3,sanName);
+            pstmt.setString(4,breadName);
+            pstmt.setInt(5,price);
 
             result = pstmt.executeUpdate();
 
