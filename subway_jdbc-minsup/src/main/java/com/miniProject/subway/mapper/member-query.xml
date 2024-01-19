@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="selectMember">
+        SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, EMAIL, PHONE, POINT
+        FROM SUBWAY_MEMBER
+
+    </entry>
+    <entry key="insertMember">
+        INSERT INTO SUBWAY_MEMBER (
+                                    MEMBER_ID,
+                                    MEMBER_PASSWORD,
+                                    MEMBER_NAME,
+                                    EMAIL,
+                                    PHONE,
+                                    POINT
+                                    )
+                VALUES(
+                        ?,
+                        ?,
+                        ?,
+                        ?,
+                        ?,
+                        0
+                        )
+    </entry>
+    <entry key="loginCheckMember">
+        SELECT MEMBER_PASSWORD
+        FROM SUBWAY_MEMBER
+        WHERE MEMBER_ID = ?
+    </entry>
+
+    <entry key="setDTOMember">
+        SELECT *
+        FROM SUBWAY_MEMBER
+    </entry>
+
+</properties>
