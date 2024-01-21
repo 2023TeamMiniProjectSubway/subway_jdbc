@@ -1,5 +1,6 @@
 package com.miniProject.subway.order;
 
+import com.miniProject.subway.member.MemberDTO;
 import com.miniProject.subway.menu.MenuDTO;
 import com.miniProject.subway.view.OrderMain;
 import com.miniProject.subway.view.OrderList;
@@ -7,22 +8,29 @@ import com.miniProject.subway.view.Main;
 
 import java.util.*;
 
+import  com.miniProject.subway.member.MemberDTO;
+
+import static com.miniProject.subway.member.MemberController.memberDTO;
 import static com.miniProject.subway.view.OrderMain.*;
 
 
 public class OrderController {
 
-    ArrayList<MenuDTO> menuDTO= new ArrayList<>();
-    ArrayList ordermenu = new ArrayList();
-    ArrayList orderprice = new ArrayList();
-    ArrayList choosebread = new ArrayList();
+    public static ArrayList<MenuDTO> menuDTO= new ArrayList<>();
+    public static ArrayList ordermenu = new ArrayList();
+    public static ArrayList orderprice = new ArrayList();
+    public static  ArrayList choosebread = new ArrayList();
 
 
 
-    ArrayList<Set> minusVegetable = new ArrayList<>();
-    ArrayList<Set> addTopping = new ArrayList<>();
+    public static ArrayList<Set> minusVegetable = new ArrayList<>();
+    public static ArrayList<Set> addTopping = new ArrayList<>();
 
+    public static Set<String> minusVegetableSet;
+    public static Set<String> addToppingSet;
 
+    public static HashMap<String, String> menuhash = new HashMap<>();
+    public static HashMap<String, Integer> menupriceHash = new HashMap<>();
 
     public static int orderMenuNum = 0;
 
@@ -60,6 +68,53 @@ public class OrderController {
 
         menuDTO.add(new MenuDTO("랍스터", 7600,"신선한 랍스터 통살이 고소한 마요네즈와 만나 풍미가 가득, 입안 가득 신선한 랍스터 샌드위치"));
 
+
+
+        menuhash.put(menuDTO.get(0).getMenuname(), "S01");
+        menuhash.put(menuDTO.get(1).getMenuname(), "S02");
+        menuhash.put(menuDTO.get(2).getMenuname(), "S03");
+        menuhash.put(menuDTO.get(3).getMenuname(), "S04");
+        menuhash.put(menuDTO.get(4).getMenuname(), "S05");
+        menuhash.put(menuDTO.get(5).getMenuname(), "S06");
+        menuhash.put(menuDTO.get(6).getMenuname(), "S07");
+        menuhash.put(menuDTO.get(7).getMenuname(), "S08");
+        menuhash.put(menuDTO.get(8).getMenuname(), "S09");
+        menuhash.put(menuDTO.get(9).getMenuname(), "S10");
+        menuhash.put(menuDTO.get(10).getMenuname(), "S11");
+        menuhash.put(menuDTO.get(11).getMenuname(), "S12");
+        menuhash.put(menuDTO.get(12).getMenuname(), "S13");
+        menuhash.put(menuDTO.get(13).getMenuname(), "S14");
+        menuhash.put(menuDTO.get(14).getMenuname(), "S15");
+        menuhash.put(menuDTO.get(15).getMenuname(), "S16");
+        menuhash.put(menuDTO.get(16).getMenuname(), "S17");
+        menuhash.put(menuDTO.get(17).getMenuname(), "S18");
+        menuhash.put(menuDTO.get(18).getMenuname(), "S19");
+
+
+
+        menupriceHash.put(menuDTO.get(0).getMenuname(), menuDTO.get(0).getPrice());
+        menupriceHash.put(menuDTO.get(1).getMenuname(), menuDTO.get(1).getPrice());
+        menupriceHash.put(menuDTO.get(2).getMenuname(), menuDTO.get(2).getPrice());
+        menupriceHash.put(menuDTO.get(3).getMenuname(), menuDTO.get(3).getPrice());
+        menupriceHash.put(menuDTO.get(4).getMenuname(), menuDTO.get(4).getPrice());
+        menupriceHash.put(menuDTO.get(5).getMenuname(), menuDTO.get(5).getPrice());
+        menupriceHash.put(menuDTO.get(6).getMenuname(), menuDTO.get(6).getPrice());
+        menupriceHash.put(menuDTO.get(7).getMenuname(), menuDTO.get(7).getPrice());
+        menupriceHash.put(menuDTO.get(8).getMenuname(), menuDTO.get(8).getPrice());
+        menupriceHash.put(menuDTO.get(9).getMenuname(), menuDTO.get(9).getPrice());
+        menupriceHash.put(menuDTO.get(10).getMenuname(), menuDTO.get(10).getPrice());
+        menupriceHash.put(menuDTO.get(11).getMenuname(), menuDTO.get(11).getPrice());
+        menupriceHash.put(menuDTO.get(12).getMenuname(), menuDTO.get(12).getPrice());
+        menupriceHash.put(menuDTO.get(13).getMenuname(), menuDTO.get(13).getPrice());
+        menupriceHash.put(menuDTO.get(14).getMenuname(), menuDTO.get(14).getPrice());
+        menupriceHash.put(menuDTO.get(15).getMenuname(), menuDTO.get(15).getPrice());
+        menupriceHash.put(menuDTO.get(16).getMenuname(), menuDTO.get(16).getPrice());
+        menupriceHash.put(menuDTO.get(17).getMenuname(), menuDTO.get(17).getPrice());
+        menupriceHash.put(menuDTO.get(18).getMenuname(), menuDTO.get(18).getPrice());
+
+
+
+//        System.out.println("key : " + menuhash.keySet() + "value : " + menuhash.values());
 
 
     }
@@ -176,7 +231,7 @@ public class OrderController {
             try {
 
                 System.out.println("=================================================================================");
-                menuBasket();
+                //menuBasket();
                 System.out.println("                            ▷ 현재 선택하신 메뉴 총 금액 : " + priceBasket());
                 System.out.println("=================================================================================");
                 System.out.println("                            ▷ 💁‍♂️ 결제 도와드리겠습니다.                                ");
@@ -255,7 +310,7 @@ public class OrderController {
     }
 
     /** 장바구니 담긴 총 금액 */
-    public int priceBasket() {  
+    public static int priceBasket() {
         int totPrc = 0;
 
         for (int i = 0; i < orderprice.size(); i++) {
@@ -283,14 +338,13 @@ public class OrderController {
     /** 카드결제창 메소드 */
     public void cardPayment() { //
 
-        OrderMain orderMain = new OrderMain();
         OrderList orderList = new OrderList();
 
         while(true) {
 
             System.out.println("                            ▷ 💳 카드 결제 입니다");
             System.out.println("                            ▷ 주문 내역을 확인 해주세요");
-            basket();
+            //basket();
             System.out.println("                            ▷ 주문 총 금액 : " + priceBasket());
             System.out.println("=================================================================================");
             System.out.println();
@@ -304,7 +358,7 @@ public class OrderController {
 
             if (choice == 1) {
                 System.out.println("                            ▷ 😊 결제가 완료되었습니다.");
-                orderList.orderComplete();
+                orderList.orderComplete(memberDTO);
                 System.out.println("                            ▷" + priceBasket() );
                 System.out.println("                            ▷ " + payPoint() );
                 return;
@@ -330,7 +384,6 @@ public class OrderController {
     /** 현금 결제창 메소드 */
     public void moneyPayment () {
 
-        OrderMain orderMain = new OrderMain();
         OrderList orderList = new OrderList();
 
         while(true) {
@@ -338,7 +391,6 @@ public class OrderController {
 
             System.out.println("                            ▷ 💸 현금 결제 입니다");
             System.out.println("                            ▷ 주문 내역을 확인해주세요 ◀");
-            basket();
             System.out.println("                            ▷ 주문 총 금액 : " + priceBasket());
             System.out.println("=================================================================================");
             System.out.println("                            ▷ 1. 결제하기");
@@ -361,9 +413,9 @@ public class OrderController {
                     System.out.println("                            ▷ " + payCash + "원이 " + "계산되었습니다. 감사합니다♥ ");
                     System.out.println("                            ▷ 적립 포인트  : " + payPoint() + " ◀");
 
-                    clearMenu();
 
-                    orderList.orderComplete();
+
+                    orderList.orderComplete(memberDTO);
                     return;
 
 
@@ -375,12 +427,11 @@ public class OrderController {
                         System.out.println("=================================================================================");
                         System.out.println("                          😋 주문이 완료되었습니다. 감사합니다 ★ ");
 
-                        clearMenu();
+                    orderList.orderComplete(memberDTO);
 
-                        System.out.println("");
-                        orderList.orderComplete();
-                        System.out.println("=================================================================================");
-                        return;
+                    System.out.println("");
+                    System.out.println("=================================================================================");
+                    return;
                 }
             } else if (cash == 2) {
                 System.out.println("                            ▷ 이전 페이지로 되돌아갑니다.");

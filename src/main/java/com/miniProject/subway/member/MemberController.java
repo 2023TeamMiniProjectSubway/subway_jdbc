@@ -2,23 +2,32 @@ package com.miniProject.subway.member;
 
 import com.miniProject.subway.view.Main;
 
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 public class MemberController{                    // login여부를 바꾸기 위해 Main클래스를 상속함
+    public static ArrayList<MemberDTO> memberDTO = new ArrayList<>();
+    MemberDTO allMemberDTO = new MemberDTO();
 
-    ArrayList<MemberDTO> memberDTO= new ArrayList<>();
+    public static MemberDTO loginMember;            // 현재 로그인 중인 멤버의 정보를 담고 있음
     Scanner sc = new Scanner(System.in);
     MemberService memberService = new MemberService();
+
 
 
     /** 로그인 창 메소드 */
     public void memberLogin(){
 
+        allMemberDTO = memberService.setDTOMember();
+
+        loginMember = new MemberDTO();
+
         membercheck :
         while(true){
+
             System.out.println("=================================================================================");
             System.out.println("                            ▷ 🙍‍♂️ 아이디와 비밀번호를 입력해주세요    ");
             System.out.println("=================================================================================");
@@ -33,20 +42,34 @@ public class MemberController{                    // login여부를 바꾸기 �
             System.out.println("                            ▶ Password :                                       ");
             String pwd = sc.nextLine();
 
-            for(int i = 0 ; i < memberDTO.size(); i++){
+            if(pwd.equals(memberService.checkMember(id))){
+                System.out.println("=================================================================================");
+                System.out.println("                            ▷ 🙆‍♂️ 로그인되었습니다.            ");   //id, pwd 일치할시 로그인
+                System.out.println("=================================================================================");
+                Main.login = true;
 
-                if(memberDTO.get(i).getid().equals(id))
-                {
-                    if(memberDTO.get(i).getPwd().equals(pwd))
-                    {
-                        System.out.println("=================================================================================");
-                        System.out.println("                            ▷ 🙆‍♂️ 로그인되었습니다.            ");   //id, pwd 일치할시 로그인
-                        System.out.println("=================================================================================");
-                        Main.login = true;
-                        return;
-                    }
-                }
+
+
+                loginMember.setId(id);
+                loginMember.setPwd(pwd);
+
+//                System.out.println("현재 로그인 정보 :  ID : " + loginMember.getid());
+
+                return;
             }
+
+//            for(int i = 0 ; i < memberDTO.size(); i++){
+//
+//                if(memberDTO.get(i).getid().equals(id))
+//                {
+//                    if(memberDTO.get(i).getPwd().equals(pwd))
+//                    {
+
+
+//                        return;
+//                    }
+//                }
+//            }
 
             incorrect :
             while(true) {
