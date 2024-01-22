@@ -133,7 +133,8 @@ import static com.miniProject.subway.order.OrderController.*;
             while (iter.hasNext()) {
                 veg = iter.next().toString();
                 strVeg = String.format("%03d", vegcount);
-                vegCode = "" + OrderSandwichCode + "V" + strVeg;
+                vegCode = "" + OrderSandwichCode + "-V" + strVeg;
+                OrderSandwichService.insertSandwichOption(OrderSandwichCode, vegCode, veg); //! 위치 잘못돼서 옮김
                 vegcount++;
 
             }
@@ -143,12 +144,13 @@ import static com.miniProject.subway.order.OrderController.*;
                 topping = iter2.next().toString();
                 strTopping = String.format("%03d", toppingCount);
                 toppingCode = "" + OrderSandwichCode + "-T" + strTopping;
+                OrderSandwichService.insertSandwichOption(OrderSandwichCode, toppingCode, topping); //! 위치 잘못돼서 옮김
                 toppingCount++;
             }
 
 
-            OrderSandwichService.insertSandwichOption(OrderSandwichCode, vegCode, veg);
-            OrderSandwichService.insertSandwichOption(OrderSandwichCode, toppingCode, topping);
+            //OrderSandwichService.insertSandwichOption(OrderSandwichCode, vegCode, veg);
+            //OrderSandwichService.insertSandwichOption(OrderSandwichCode, toppingCode, topping);
 
         }
 
